@@ -2,33 +2,31 @@
 METADATA
 {
   "name": "mimo_code"
-  "version": "1.2.0"
+  "version": "1.3.0"
   "display_name": { "zh": "MiMo代码工具", "en": "MiMo Code Tools" }
-  "description": { "zh": "MiMo Code 代码理解工具包：搜索、读取、深度探索（签名+定义+引用+调用者+类成员）、文件理解、文件查找、编辑、写入", "en": "MiMo Code toolkit: search, read, explore, understand, glob, edit, write" }
+  "description": { "zh": "MiMo Code 代码理解工具包：搜索、读取、深度探索、文件理解、文件查找、编辑、写入", "en": "MiMo Code toolkit" }
   "enabledByDefault": true
   "category": "Development"
   "tools": [
-    { "name": "mimo_search", "description": { "zh": "代码搜索：正则+上下文", "en": "Regex search with context" }, "parameters": [ { "name": "path", "type": "string", "required": true }, { "name": "pattern", "type": "string", "required": true }, { "name": "include", "type": "string", "required": false } ] }
-    { "name": "mimo_read", "description": { "zh": "智能读取：行号+符号标注", "en": "Smart read with line numbers" }, "parameters": [ { "name": "path", "type": "string", "required": true }, { "name": "offset", "type": "number", "required": false }, { "name": "limit", "type": "number", "required": false } ] }
-    { "name": "mimo_explore", "description": { "zh": "深度理解：签名提取+定义+引用+调用者+类成员。一次返回符号完整画像。", "en": "Deep code understanding: signatures, definitions, references, callers, class members" }, "parameters": [ { "name": "path", "type": "string", "required": true }, { "name": "symbol", "type": "string", "required": true }, { "name": "include", "type": "string", "required": false } ] }
-    { "name": "mimo_understand", "description": { "zh": "文件结构分析：所有类/函数/变量/继承/import一览", "en": "File structure analysis" }, "parameters": [ { "name": "path", "type": "string", "required": true } ] }
-    { "name": "mimo_glob", "description": { "zh": "文件查找", "en": "Find files by pattern" }, "parameters": [ { "name": "path", "type": "string", "required": true }, { "name": "pattern", "type": "string", "required": true } ] }
-    { "name": "mimo_edit", "description": { "zh": "代码编辑：替换内容", "en": "Edit: replace content" }, "parameters": [ { "name": "path", "type": "string", "required": true }, { "name": "old", "type": "string", "required": true }, { "name": "new", "type": "string", "required": true } ] }
-    { "name": "mimo_write", "description": { "zh": "文件写入", "en": "Write file" }, "parameters": [ { "name": "path", "type": "string", "required": true }, { "name": "content", "type": "string", "required": true }, { "name": "append", "type": "boolean", "required": false } ] }
+    { "name": "mimo_search", "description": { "zh": "代码搜索：正则+上下文", "en": "Regex search" }, "parameters": [ { "name": "path", "description": { "zh": "项目路径", "en": "Path" }, "type": "string", "required": true }, { "name": "pattern", "description": { "zh": "正则", "en": "Regex" }, "type": "string", "required": true }, { "name": "include", "description": { "zh": "过滤", "en": "Filter" }, "type": "string", "required": false } ] }
+    { "name": "mimo_read", "description": { "zh": "智能读取", "en": "Read" }, "parameters": [ { "name": "path", "description": { "zh": "文件", "en": "File" }, "type": "string", "required": true }, { "name": "offset", "description": { "zh": "起始行", "en": "Start" }, "type": "number", "required": false }, { "name": "limit", "description": { "zh": "行数", "en": "Lines" }, "type": "number", "required": false } ] }
+    { "name": "mimo_explore", "description": { "zh": "深度理解：签名+定义+引用+调用者+类成员", "en": "Deep explore" }, "parameters": [ { "name": "path", "description": { "zh": "项目路径", "en": "Path" }, "type": "string", "required": true }, { "name": "symbol", "description": { "zh": "符号名", "en": "Symbol" }, "type": "string", "required": true }, { "name": "include", "description": { "zh": "过滤", "en": "Filter" }, "type": "string", "required": false } ] }
+    { "name": "mimo_understand", "description": { "zh": "文件结构分析", "en": "File analysis" }, "parameters": [ { "name": "path", "description": { "zh": "文件", "en": "File" }, "type": "string", "required": true } ] }
+    { "name": "mimo_glob", "description": { "zh": "文件查找", "en": "Find files" }, "parameters": [ { "name": "path", "description": { "zh": "路径", "en": "Path" }, "type": "string", "required": true }, { "name": "pattern", "description": { "zh": "模式", "en": "Pattern" }, "type": "string", "required": true } ] }
+    { "name": "mimo_edit", "description": { "zh": "代码编辑", "en": "Edit" }, "parameters": [ { "name": "path", "description": { "zh": "文件", "en": "File" }, "type": "string", "required": true }, { "name": "old", "description": { "zh": "旧内容", "en": "Old" }, "type": "string", "required": true }, { "name": "new", "description": { "zh": "新内容", "en": "New" }, "type": "string", "required": true } ] }
+    { "name": "mimo_write", "description": { "zh": "文件写入", "en": "Write" }, "parameters": [ { "name": "path", "description": { "zh": "文件", "en": "File" }, "type": "string", "required": true }, { "name": "content", "description": { "zh": "内容", "en": "Content" }, "type": "string", "required": true }, { "name": "append", "description": { "zh": "追加", "en": "Append" }, "type": "boolean", "required": false } ] }
   ]
 }*/
 
-// ====== Helpers ======
-var TEXT_EXTS = '.kt.java.py.js.ts.tsx.jsx.json.xml.md.txt.yml.yaml.sh.c.cpp.h.go.rs.rb.php.swift.dart.html.css.sql.toml.ini.gradle.properties.m.mm.vue.svelte.astro.r.lua.luau.kts.cs'.split('.');
-function isText(n){var l=n.toLowerCase();for(var i=0;i<TEXT_EXTS.length;i++){if(l.endsWith(TEXT_EXTS[i]))return true;}return false;}
-function matchGlob(n,p){if(!p)return true;var ps=p.split(',');for(var i=0;i<ps.length;i++){var x=ps[i].trim();if(x.startsWith('*.')){if(n.toLowerCase().endsWith(x.substring(1).toLowerCase()))return true;}else if(n.toLowerCase().indexOf(x.replace(/\*/g,'').toLowerCase())>=0)return true;}return false;}
-function ctxFn(ls,idx,c){var s=Math.max(0,idx-c),e=Math.min(ls.length,idx+c+1),o=[];for(var i=s;i<e;i++){o.push((i===idx?'>':' ')+' '+(i+1)+': '+ls[i]);}return o.join('\n');}
-function getLang(fp){var d=fp.lastIndexOf('.');return d>=0?fp.substring(d):'';}
-async function walk(root,md,d,p){if(md>=0&&d>md)return [];var r=[];try{var ls=await Tools.Files.list(root);if(!ls||!ls.entries)return r;for(var i=0;i<ls.entries.length;i++){var e=ls.entries[i];if(e.name.startsWith('.')||e.name==='node_modules'||e.name==='build'||e.name==='.git'||e.name==='__pycache__')continue;var fp=root+'/'+e.name;if(e.isDirectory){r=r.concat(await walk(fp,md,d+1,p));}else{if(p&&!matchGlob(e.name,p))continue;r.push({path:fp,name:e.name});}}}catch(ex){}return r;}
+var EX = '.kt.java.py.js.ts.tsx.jsx.json.xml.md.txt.yml.yaml.sh.c.cpp.h.go.rs.rb.php.swift.dart.html.css.sql.toml.ini.gradle.properties.m.mm.vue.svelte.astro.r.lua.luau.kts.cs'.split('.');
+function isT(n){var l=n.toLowerCase();for(var i=0;i<EX.length;i++){if(l.endsWith(EX[i]))return true;}return false;}
+function mG(n,p){if(!p)return true;var ps=p.split(',');for(var i=0;i<ps.length;i++){var x=ps[i].trim();if(x.startsWith('*.')){if(n.toLowerCase().endsWith(x.substring(1).toLowerCase()))return true;}else if(n.toLowerCase().indexOf(x.replace(/\*/g,'').toLowerCase())>=0)return true;}return false;}
+function cF(ls,idx,c){var s=Math.max(0,idx-c),e=Math.min(ls.length,idx+c+1),o=[];for(var i=s;i<e;i++){o.push((i===idx?'>':' ')+' '+(i+1)+': '+ls[i]);}return o.join('\n');}
+function gL(fp){var d=fp.lastIndexOf('.');return d>=0?fp.substring(d):'';}
+async function wk(root,md,d,p){if(md>=0&&d>md)return [];var r=[];try{var ls=await Tools.Files.list(root);if(!ls||!ls.entries)return r;for(var i=0;i<ls.entries.length;i++){var e=ls.entries[i];if(e.name.startsWith('.')||e.name==='node_modules'||e.name==='build'||e.name==='.git'||e.name==='__pycache__')continue;var fp=root+'/'+e.name;if(e.isDirectory){r=r.concat(await wk(fp,md,d+1,p));}else{if(p&&!mG(e.name,p))continue;r.push({path:fp,name:e.name});}}}catch(ex){}return r;}
 
-// ====== Signature Extraction ======
-function extractSig(line,lang){
-var t=line.trim(),s={raw:t,mods:[],name:'',params:'',ret:'',type:'other'};
+function eS(ln2,lang){
+var t=ln2.trim(),s={raw:t,mods:[],name:'',params:'',ret:'',type:'other'};
 if(/\.kt$|\.java$|\.kts$/.test(lang)){
 var fm=t.match(/fun\s+(\w+)\s*\(([^)]*)\)\s*(?::\s*(\S+))?/);
 if(fm){s.type='function';s.name=fm[1];s.params=fm[2].trim();s.ret=fm[3]||'';return s;}
@@ -57,42 +55,35 @@ if(/\.rs$/.test(lang)){
 var rf=t.match(/^(pub\s+)?(async\s+)?fn\s+(\w+)/);
 if(rf){s.type='function';s.name=rf[3];return s;}
 }
-if(/\.c$|\.cpp$|\.h$|\.hpp$/.test(lang)){
-var cf2=t.match(/^(?:static\s+|inline\s+|extern\s+)?(\w[\w\s\*]+?)\s+(\w+)\s*\(([^)]*)\)\s*(?:\{|;)/);
-if(cf2){s.type='function';s.name=cf2[2];s.params=cf2[3].trim();s.ret=cf2[1].trim();return s;}
-}
 var gm=t.match(/(?:fun|def|function|func|fn)\s+(\w+)/);
 if(gm){s.type='function';s.name=gm[1];return s;}
 var gc=t.match(/(?:class|interface|struct|enum|type)\s+(\w+)/);
 if(gc){s.type='class';s.name=gc[1];return s;}
-var gp=t.match(/(?:val|var|const|let)\s+(\w+)/);
-if(gp){s.type='property';s.name=gp[1];return s;}
 return s;
 }
 
-function extractClassMembers(lines,classLine,lang){
+function eCM(lines,classLine,lang){
 var m={methods:[],properties:[]};
 for(var i=classLine+1;i<Math.min(classLine+80,lines.length);i++){
 if(lines[i].trim()==='')continue;
-var sig=extractSig(lines[i],lang);
+var sig=eS(lines[i],lang);
 if(sig.type==='function')m.methods.push({line:i+1,name:sig.name,params:sig.params,ret:sig.ret});
 else if(sig.type==='property')m.properties.push({line:i+1,name:sig.name,ret:sig.ret});
 }
 return m;
 }
 
-// ====== mimo_search ======
 async function mimo_search(params){
 var p=params.path,pat=params.pattern,inc=params.include||'';
 if(!p||!pat)return{success:false,message:'path and pattern required'};
 try{
-var rx=new RegExp(pat,'gi'),files=await walk(p,8,0),matches=[],searched=0;
+var rx=new RegExp(pat,'gi'),files=await wk(p,8,0),matches=[],searched=0;
 for(var f=0;f<files.length;f++){
-if(inc&&!matchGlob(files[f].name,inc))continue;
-if(!isText(files[f].name))continue;
+if(inc&&!mG(files[f].name,inc))continue;
+if(!isT(files[f].name))continue;
 searched++;
 try{var c=await Tools.Files.read(files[f].path);if(!c||!c.content)continue;var ls=c.content.split('\n');
-for(var ln=0;ln<ls.length;ln++){rx.lastIndex=0;if(rx.test(ls[ln]))matches.push({file:files[f].path,line:ln+1,ctx:ctxFn(ls,ln,2)});}}catch(ex){}
+for(var ln=0;ln<ls.length;ln++){rx.lastIndex=0;if(rx.test(ls[ln]))matches.push({file:files[f].path,line:ln+1,ctx:cF(ls,ln,2)});}}catch(ex){}
 }
 var out='Found '+matches.length+' (searched '+searched+' files)\n\n';
 var cf='';
@@ -102,39 +93,37 @@ return{success:true,data:{count:matches.length,searched:searched},message:out};
 }catch(e){return{success:false,message:'Error: '+e.message};}
 }
 
-// ====== mimo_read ======
 async function mimo_read(params){
 var p=params.path,off=params.offset||1,lim=params.limit||200;
 if(!p)return{success:false,message:'path required'};
 try{var c=await Tools.Files.read(p);if(!c||!c.content)return{success:false,message:'Cannot read: '+p};
 var all=c.content.split('\n'),start=Math.max(0,off-1),end=Math.min(all.length,start+lim);
-var lang=getLang(p),out=p+' (lines '+(start+1)+'-'+end+' of '+all.length+')\n\n';
-for(var i=start;i<end;i++){var sig=extractSig(all[i],lang);var lb=sig.type!=='other'?'['+sig.type.charAt(0).toUpperCase()+'] ':'    ';out+=lb+(i+1)+': '+all[i]+'\n';}
+var lang=gL(p),out=p+' (lines '+(start+1)+'-'+end+' of '+all.length+')\n\n';
+for(var i=start;i<end;i++){var sig=eS(all[i],lang);var lb=sig.type!=='other'?'['+sig.type.charAt(0).toUpperCase()+'] ':'    ';out+=lb+(i+1)+': '+all[i]+'\n';}
 if(end<all.length)out+='\n(offset='+(end+1)+' to continue)';else out+='\n(End of file, '+all.length+' lines)';
 return{success:true,data:{total:all.length,from:start+1,to:end},message:out};
 }catch(e){return{success:false,message:'Error: '+e.message};}
 }
 
-// ====== mimo_explore (深度理解) ======
 async function mimo_explore(params){
 var p=params.path,sym=params.symbol,inc=params.include||'';
 if(!p||!sym)return{success:false,message:'path and symbol required'};
 try{
-var files=await walk(p,8,0),defs=[],refs=[],callers=[];
+var files=await wk(p,8,0),defs=[],refs=[],callers=[];
 for(var f=0;f<files.length;f++){
-if(inc&&!matchGlob(files[f].name,inc))continue;
-if(!isText(files[f].name))continue;
+if(inc&&!mG(files[f].name,inc))continue;
+if(!isT(files[f].name))continue;
 try{var c=await Tools.Files.read(files[f].path);if(!c||!c.content)continue;
-var ls=c.content.split('\n'),lang=getLang(files[f].path);
+var ls=c.content.split('\n'),lang=gL(files[f].path);
 for(var ln=0;ln<ls.length;ln++){
 if(ls[ln].indexOf(sym)===-1)continue;
-var sig=extractSig(ls[ln],lang);
+var sig=eS(ls[ln],lang);
 if(sig.type!=='other'&&sig.name===sym){
 var body=[];for(var bl=ln;bl<Math.min(ln+25,ls.length);bl++){body.push((bl+1)+': '+ls[bl]);}
-var members=sig.type==='class'?extractClassMembers(ls,ln,lang):null;
+var members=sig.type==='class'?eCM(ls,ln,lang):null;
 defs.push({file:files[f].path,line:ln+1,sig:sig,body:body.join('\n'),members:members});
 }else if(new RegExp('\\b'+sym.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+'\\b').test(ls[ln])){
-var csig=extractSig(ls[ln],lang);
+var csig=eS(ls[ln],lang);
 if(csig.type==='function'&&ls[ln].indexOf(sym+'(')>=0)callers.push({file:files[f].path,line:ln+1,caller:csig.name,text:ls[ln].trim()});
 refs.push({file:files[f].path,line:ln+1,text:ls[ln].trim()});
 }
@@ -145,8 +134,8 @@ if(defs.length>0){
 out+='## Definitions ('+defs.length+')\n\n';
 for(var d=0;d<defs.length;d++){var df=defs[d];out+='['+df.sig.type.toUpperCase()+'] '+df.file+':'+df.line+'\n';
 if(df.sig.type==='function'){out+='  Signature: '+sym;if(df.sig.params)out+='('+df.sig.params+')';if(df.sig.ret)out+=' -> '+df.sig.ret;out+='\n';}
-else if(df.sig.type==='class'){out+='  Class: '+sym;if(df.sig.ret)out+=' : '+df.sig.ret;out+'\n';
-if(df.members){if(df.members.methods.length>0){out+='  Methods ('+df.members.methods.length+'):\n';for(var mi=0;mi<df.members.methods.length;mi++){var mm=df.members.methods[mi];out+='    L'+mm.line+' '+mm.name+'('+(mm.params||')')+')'+(mm.ret?' -> '+mm.ret:'')+'\n';}}
+else if(df.sig.type==='class'){out+='  Class: '+sym;if(df.sig.ret)out+=' : '+df.sig.ret;out+='\n';
+if(df.members){if(df.members.methods.length>0){out+='  Methods ('+df.members.methods.length+'):\n';for(var mi=0;mi<df.members.methods.length;mi++){var mm=df.members.methods[mi];out+='    L'+mm.line+' '+mm.name+'('+(mm.params||'')+')'+(mm.ret?' -> '+mm.ret:'')+'\n';}}
 if(df.members.properties.length>0){out+='  Properties ('+df.members.properties.length+'):\n';for(var pi=0;pi<df.members.properties.length;pi++){var pr=df.members.properties[pi];out+='    L'+pr.line+' '+(pr.name||'')+(pr.ret?': '+pr.ret:'')+'\n';}}}}
 out+='\n  Body:\n'+df.body+'\n\n';}
 }else{out+='## Definitions: NOT FOUND\n\n';}
@@ -156,14 +145,13 @@ return{success:true,data:{symbol:sym,defs:defs.length,callers:callers.length,ref
 }catch(e){return{success:false,message:'Error: '+e.message};}
 }
 
-// ====== mimo_understand ======
 async function mimo_understand(params){
 var p=params.path;if(!p)return{success:false,message:'path required'};
 try{var c=await Tools.Files.read(p);if(!c||!c.content)return{success:false,message:'Cannot read: '+p};
-var ls=c.content.split('\n'),lang=getLang(p),fns=[],cls=[],props=[],imps=[];
+var ls=c.content.split('\n'),lang=gL(p),fns=[],cls=[],props=[],imps=[];
 for(var i=0;i<ls.length;i++){var line=ls[i];if(line.trim()==='')continue;
 if(/^import |^from |^#include|^require\(/.test(line.trim()))imps.push({line:i+1,text:line.trim()});
-var sig=extractSig(line,lang);
+var sig=eS(line,lang);
 if(sig.type==='function')fns.push({line:i+1,name:sig.name,params:sig.params,ret:sig.ret});
 else if(sig.type==='class')cls.push({line:i+1,name:sig.name,extends:sig.ret});
 else if(sig.type==='property')props.push({line:i+1,name:sig.name,type:sig.ret});
@@ -178,16 +166,14 @@ return{success:true,data:{classes:cls.length,functions:fns.length,properties:pro
 }catch(e){return{success:false,message:'Error: '+e.message};}
 }
 
-// ====== mimo_glob ======
 async function mimo_glob(params){
 var p=params.path,pat=params.pattern;if(!p||!pat)return{success:false,message:'path and pattern required'};
-try{var files=await walk(p,-1,0,pat);
+try{var files=await wk(p,-1,0,pat);
 var out='Found '+files.length+' matching "'+pat+'":\n\n';for(var i=0;i<files.length;i++)out+='  '+files[i].path+'\n';
 return{success:true,data:{count:files.length},message:out};
 }catch(e){return{success:false,message:'Error: '+e.message};}
 }
 
-// ====== mimo_edit ======
 async function mimo_edit(params){
 var p=params.path,old=params.old,nw=params['new'];
 if(!p||old===undefined||nw===undefined)return{success:false,message:'path, old, new required'};
@@ -198,17 +184,9 @@ return{success:true,message:'Edited '+p};
 }catch(e){return{success:false,message:'Error: '+e.message};}
 }
 
-// ====== mimo_write ======
 async function mimo_write(params){
 var p=params.path,content=params.content,append=params.append===true;
 if(!p||content===undefined)return{success:false,message:'path and content required'};
 try{await Tools.Files.write(p,content,append);return{success:true,message:(append?'Appended to ':'Wrote ')+p};
 }catch(e){return{success:false,message:'Error: '+e.message};}
 }
-
-// ====== Entry point ======
-var __F={mimo_search:mimo_search,mimo_read:mimo_read,mimo_explore:mimo_explore,mimo_understand:mimo_understand,mimo_glob:mimo_glob,mimo_edit:mimo_edit,mimo_write:mimo_write};
-var __n=(typeof params!=='undefined'&&params['function'])?params['function']:'mimo_search';
-var __p=(typeof params!=='undefined'&&params['params'])?params['params']:((typeof params!=='undefined')?params:{});
-delete __p['__operit_inline_function_name'];delete __p['__operit_inline_function_source'];delete __p['__operit_package_lang'];delete __p['function'];
-if(__F[__n]){var __r=await __F[__n](__p);complete(__r);}else{complete({success:false,message:'Unknown: '+__n+'. Available: '+Object.keys(__F).join(', ')});}
