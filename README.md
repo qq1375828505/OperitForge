@@ -8,30 +8,43 @@
 
 | 包名 | 说明 | 调用方式 |
 |------|------|----------|
-| agent_orchestrator.js | AI皇权编排器 | use_package |
-| mimo_code.js | MiMo代码工具（7个工具） | debug_run_sandbox_script |
+| agent_orchestrator.js | AI皇权编排器（23个工具） | use_package |
+| mimo_code.js | MiMo代码工具（7个工具） | eval模式（见下方） |
 
 ### 技能 (skills/)
 
 | 技能名 | 说明 |
 |--------|------|
 | ecc | ECC代码审查技能 |
-| terminal-optimizer | 终端操作优化技能 |
 
 ## 快速安装
 
-1. 克隆仓库
-2. 复制 packages/*.js 到 /sdcard/Android/data/com.ai.assistance.operit/files/packages/
-3. 复制 skills/* 到 /sdcard/Download/Operit/skills/
-4. 重启 Operit
+复制 packages/*.js 到 /sdcard/Android/data/com.ai.assistance.operit/files/packages/
+
+复制 skills/* 到 /sdcard/Download/Operit/skills/
+
+重启 Operit
 
 ## mimo_code 使用方法
 
+因 Operit 平台 bug，use_package 暂不可用。使用 eval 模式调用：
+
 调用方式：operit_editor:debug_run_sandbox_script
 
-参数：
-- source_path: /sdcard/Android/data/com.ai.assistance.operit/files/packages/mimo_code.js
-- params_json: {"function":"mimo_search","params":{"path":"项目路径","pattern":"正则","include":"*.kt"}}
+source_code 固定为：
+```js
+var file = await Tools.Files.read('/sdcard/Android/data/com.ai.assistance.operit/files/packages/mimo_code.js');
+eval(file.content);
+var fnName = params.function || 'mimo_search';
+var fnParams = params.params || {};
+var fnMap = {mimo_search:mimo_search, mimo_read:mimo_read, mimo_explore:mimo_explore, mimo_understand:mimo_understand, mimo_glob:mimo_glob, mimo_edit:mimo_edit, mimo_write:mimo_write};
+if (fnMap[fnName]) { complete(await fnMap[fnName](fnParams)); } else { complete({success:false, message:'Unknown: '+fnName}); }
+```
+
+params_json 指定函数和参数：
+```json
+{"function":"mimo_search","params":{"path":"项目路径","pattern":"正则","include":"*.kt"}}
+```
 
 ## 可用工具
 
